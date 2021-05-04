@@ -2,7 +2,7 @@ import pickle
 import pandas as pd
 import numpy as np
 import StatsFunctions as stats
-from sklearn.svm import SVR
+import xgboost as xgb
 from sklearn.preprocessing import StandardScaler
 
 class ash08_xgb():
@@ -10,17 +10,17 @@ class ash08_xgb():
     This class represents the best model/configuration from Asheville (NCEI station).
     
     It uses a XGB model and the following input configuration (being rs the predicted value):
-        ['tx', 'tn', 'ra', 'deltat', 'energyt', 'hormintx', 'tx_prev', 'rs']
+        ['tx', 'tn', 'ra', 'deltat', 'energyt', 'hormin_tx', 'tx_prev', 'rs']
 
     """
     def __init__(self):
         # import model
-        filename = "models/xgb_ash08_tx_tn_ra_deltaT_energyt_hormin_tx_tx_prev_tn_next_rs"
-        with open(filename, 'rb') as file:
-            self.model = pickle.load(file)
+        filename = "models/xgb_ash08_tx_tn_ra_deltaT_energyt_hormin_tx_tx_prev_rs.json"
+        self.model = xgb.XGBRegressor()
+        self.model.load_model(filename)
 
         # define required inputs
-        self.parameters = ['tx', 'tn', 'ra', 'deltat', 'energyt', 'hormintx', 'tx_prev', 'rs']
+        self.parameters = ['tx', 'tn', 'ra', 'deltat', 'energyt', 'hormin_tx', 'tx_prev', 'rs']
 
     def import_dataset(self, fileLocation, fileType):
         """
@@ -36,6 +36,10 @@ class ash08_xgb():
         else:
             AssertionError('this fileType does not exit, use excel, csv and txt instead')
 
+        #define deltat
+        self.dfData["deltat"] = self.dfData['tx'] - self.dfData['tn']
+        # convert rs from W/m2 to MJ/m2day-1
+        self.dfData["rs"] = self.dfData['rs']*0.0864
         # filter nan values
         self.dfData.dropna(inplace=True)
         self.dfData.reset_index(drop=True, inplace=True)
@@ -47,8 +51,8 @@ class ash08_xgb():
         Split data to train and test
         """
         # from training original dataset
-        mean_list = [24.42, 11.03, 28.78, 13.38, 402.95, 15.20, 24.42, 11.02]
-        std_list = [8.54, 6.26, 9.64, 4.578, 177.87, 1.78, 8.53, 6.27]
+        mean_list = [20.30, 6.67, 30.38, 13.62, 209.17, 14.49, 20.14]
+        std_list = [7.86, 8.31, 9.04, 4.93, 1033.36, 2.25, 8.03]
 
         # we have the input data as x, and the output as y
         self.x_test = np.array(self.dfData.iloc[:, :-1])
@@ -78,8 +82,8 @@ class ash08_xgb():
         return rmse, rrmse, mbe, r2, nse
 
 if __name__ == '__main__':
-    mlModel = cor06_svm()
-    mlModel.import_dataset("data/data-daily-asheville-example.csv", 'csv')
+    mlModel = ash08_xgb()
+    mlModel.import_dataset("data/ncei-asheville-example.csv", 'csv')
     mlModel.getStandardDataTest()
     mlModel.predictValues()
     rmse, rrmse, mbe, r2, nse = mlModel.statAnalysis()
