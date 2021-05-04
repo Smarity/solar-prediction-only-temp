@@ -77,7 +77,7 @@ class mag01_mlp():
 
 if __name__ == '__main__':
     mlModel = mag01_mlp()
-    mlModel.import_dataset("data/ria_mag01.csv", 'csv')
+    mlModel.import_dataset("data/ncei-asheville-example.csv", 'csv')
     mlModel.getStandardDataTest()
     mlModel.predictValues()
     rmse, rrmse, mbe, r2, nse = mlModel.statAnalysis()

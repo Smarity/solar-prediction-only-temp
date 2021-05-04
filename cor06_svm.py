@@ -78,7 +78,7 @@ class cor06_svm():
 
 if __name__ == '__main__':
     mlModel = cor06_svm()
-    mlModel.import_dataset("data/data-daily-asheville-example.csv", 'csv')
+    mlModel.import_dataset("data/ncei-asheville-example.csv", 'csv')
     mlModel.getStandardDataTest()
     mlModel.predictValues()
     rmse, rrmse, mbe, r2, nse = mlModel.statAnalysis()

@@ -80,7 +80,7 @@ class alm04_svm():
 
 if __name__ == '__main__':
     mlModel = alm04_svm()
-    mlModel.import_dataset("data/ria_alm04.csv", 'csv')
+    mlModel.import_dataset("data/ncei-asheville-example.csv", 'csv')
     mlModel.getStandardDataTest()
     mlModel.predictValues()
     rmse, rrmse, mbe, r2, nse = mlModel.statAnalysis()
