@@ -2,7 +2,6 @@ import pickle
 import pandas as pd
 import numpy as np
 import StatsFunctions as stats
-from sklearn.svm import SVR
 from sklearn.preprocessing import StandardScaler
 
 class cor06_svm():
