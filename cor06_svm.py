@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 
 class cor06_svm():
     """
-    This class represents the best model/configuration from Córdoba (RIA station).
+    This class represents the best model/configuration from Córdoba (RIA station) - aridity index = 0.4616.
     
     It uses a SVM model and the following input configuration (being rs the predicted value):
         ['tx', 'tn', 'ra', 'deltat', 'energyt', 'hormintx', 'tx_prev', 'tn_next', 'rs']

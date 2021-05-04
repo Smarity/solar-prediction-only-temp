@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 
 class ash08_xgb():
     """
-    This class represents the best model/configuration from Asheville (NCEI station).
+    This class represents the best model/configuration from Asheville (NCEI station) - aridity index = 1.1494.
     
     It uses a XGB model and the following input configuration (being rs the predicted value):
         ['tx', 'tn', 'ra', 'deltat', 'energyt', 'hormin_tx', 'tx_prev', 'rs']

@@ -5,9 +5,9 @@ import StatsFunctions as stats
 import hpelm
 from sklearn.preprocessing import StandardScaler
 
-class alm04_svm():
+class alm04_elm():
     """
-    This class represents the best model/configuration from Tabernas (RIA station).
+    This class represents the best model/configuration from Tabernas (RIA station) - aridity index = 0.1786.
     
     It uses a ELM model and the following input configuration (being rs the predicted value):
         ['tx', 'tn', 'ra', 'delta_t', 'energyt', 'hormin_tx', 'tx_prev', 'rs']
@@ -82,7 +82,7 @@ class alm04_svm():
         return rmse, rrmse, mbe, r2, nse
 
 if __name__ == '__main__':
-    mlModel = alm04_svm()
+    mlModel = alm04_elm()
     mlModel.import_dataset("data/ncei-asheville-example.csv", 'csv')
     mlModel.getStandardDataTest()
     mlModel.predictValues()

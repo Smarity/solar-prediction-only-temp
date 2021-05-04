@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 
 class hue08_svm():
     """
-    This class represents the best model/configuration from El Campillo (RIA station).
+    This class represents the best model/configuration from El Campillo (RIA station) - aridity index = 0.5497.
     
     It uses a SVM model and the following input configuration (being rs the predicted value):
         ['tx', 'tn', 'ra', 'energyt', 'hormin_tx', 'tx_prev', 'tn_next', 'rs']

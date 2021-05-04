@@ -5,9 +5,9 @@ import StatsFunctions as stats
 from tensorflow import keras
 from sklearn.preprocessing import StandardScaler
 
-class hue08_svm():
+class jae07_mlp():
     """
-    This class represents the best model/configuration from Mancha Real (RIA station).
+    This class represents the best model/configuration from Mancha Real (RIA station) - aridity index =0.2808.
     
     It uses a SVM model and the following input configuration (being rs the predicted value):
         ['tx', 'tn', 'ra', 'energyt', 'hormin_tx', 'tx_prev', 'tn_next', 'rs']
@@ -80,7 +80,7 @@ class hue08_svm():
         return rmse, rrmse, mbe, r2, nse
 
 if __name__ == '__main__':
-    mlModel = hue08_svm()
+    mlModel = jae07_mlp()
     mlModel.import_dataset("data/data-daily-asheville-example.csv", 'csv')
     mlModel.getStandardDataTest()
     mlModel.predictValues()

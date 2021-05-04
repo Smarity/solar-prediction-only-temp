@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 
 class mag01_mlp():
     """
-    This class represents the best model/configuration from Málaga (RIA station).
+    This class represents the best model/configuration from Málaga (RIA station) - aridity index = 0.3666.
     
     It uses a MLP model and the following input configuration (being rs the predicted value):
         ['tx', 'tn', 'ra', 'delta_t','energyt', 'hormin_tx', 'tx_prev', 'tn_next', 'rs']

@@ -5,9 +5,9 @@ import StatsFunctions as stats
 from tensorflow import keras
 from sklearn.preprocessing import StandardScaler
 
-class mag01_mlp():
+class sev09_mlp():
     """
-    This class represents the best model/configuration from Écija (RIA station).
+    This class represents the best model/configuration from Écija (RIA station) - aridity index = 0.3615.
     
     It uses a MLP model and the following input configuration (being rs the predicted value):
         ['tx', 'tn', 'ra', 'delta_t','energyt', 'hormin_tx', 'tx_prev', 'tn_next', 'rs']
@@ -80,7 +80,7 @@ class mag01_mlp():
         return rmse, rrmse, mbe, r2, nse
 
 if __name__ == '__main__':
-    mlModel = mag01_mlp()
+    mlModel = sev09_mlp()
     mlModel.import_dataset("data/ncei-asheville-example.csv", 'csv')
     mlModel.getStandardDataTest()
     mlModel.predictValues()

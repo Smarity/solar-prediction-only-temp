@@ -5,9 +5,9 @@ import StatsFunctions as stats
 from tensorflow import keras
 from sklearn.preprocessing import StandardScaler
 
-class gra03_svm():
+class gra03_mlp():
     """
-    This class represents the best model/configuration from Loja (RIA station).
+    This class represents the best model/configuration from Loja (RIA station) - aridity index = 0.3162.
     
     It uses a SVM model and the following input configuration (being rs the predicted value):
         ['tx', 'tn', 'ra', 'delta_t', 'energyt', 'hormin_tx', 'tn_prev', 'rs']
@@ -81,7 +81,7 @@ class gra03_svm():
         return rmse, rrmse, mbe, r2, nse
 
 if __name__ == '__main__':
-    mlModel = gra03_svm()
+    mlModel = gra03_mlp()
     mlModel.import_dataset("data/data-daily-asheville-example.csv", 'csv')
     mlModel.getStandardDataTest()
     mlModel.predictValues()
