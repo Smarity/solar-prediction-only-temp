@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 
 class gra03_svm():
     """
-    This class represents the best model/configuration from Córdoba (RIA station).
+    This class represents the best model/configuration from Loja (RIA station).
     
     It uses a SVM model and the following input configuration (being rs the predicted value):
         ['tx', 'tn', 'ra', 'delta_t', 'energyt', 'hormin_tx', 'tn_prev', 'rs']
