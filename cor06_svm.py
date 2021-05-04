@@ -35,6 +35,10 @@ class cor06_svm():
         else:
             AssertionError('this fileType does not exit, use excel, csv and txt instead')
 
+        # define deltat
+        self.dfData["deltat"] = self.dfData['tx'] - self.dfData['tn']
+        # convert rs from W/m2 to MJ/m2day-1
+        self.dfData["rs"] = self.dfData['rs'] * 0.0864
         # filter nan values
         self.dfData.dropna(inplace=True)
         self.dfData.reset_index(drop=True, inplace=True)
