@@ -2,26 +2,23 @@ import pickle
 import pandas as pd
 import numpy as np
 import StatsFunctions as stats
-import hpelm
+from tensorflow import keras
 from sklearn.preprocessing import StandardScaler
 
-class alm04_svm():
+class mag01_mlp():
     """
-    This class represents the best model/configuration from Tabernas (RIA station).
+    This class represents the best model/configuration from Écija (RIA station).
     
-    It uses a ELM model and the following input configuration (being rs the predicted value):
-        ['tx', 'tn', 'ra', 'delta_t', 'energyt', 'hormin_tx', 'tx_prev', 'rs']
-
+    It uses a MLP model and the following input configuration (being rs the predicted value):
+        ['tx', 'tn', 'ra', 'delta_t','energyt', 'hormin_tx', 'tx_prev', 'tn_next', 'rs']
     """
     def __init__(self):
         # import model
-        filename = "models/elm_alm04_Tx_Tn_Ra_deltaT_EnergyT_HorminTx_Tn_prev_Rs.pkl"
-        with open(filename, 'rb') as file:
-            self.model =hpelm.ELM(inputs=7, outputs=1 )
-            self.model.load(filename)
+        filename = "models/mlp_sev09_Tx_Tn_Ra_deltaT_EnergyT_HorminTx_Txprev_Tnnext_Rs.h5"
+        self.model = keras.models.load_model(filename)
 
         # define required inputs
-        self.parameters = ['tx', 'tn', 'ra', 'delta_t', 'energyt', 'hormin_tx', 'tx_prev', 'rs']
+        self.parameters =  ['tx', 'tn', 'ra', 'delta_t','energyt', 'hormin_tx', 'tx_prev', 'tn_next', 'rs']
 
     def import_dataset(self, fileLocation, fileType):
         """
@@ -48,8 +45,8 @@ class alm04_svm():
         Split data to train and test
         """
         # from training original dataset
-        mean_list = [23.21, 9.84, 29.28, 13.37, 364.57, 13.39, 23.21]
-        std_list = [7.34, 6.17, 9.40, 3.87, 162.81, 1.89, 7.33]
+        mean_list = [25.03, 10.95, 29.06, 14.07, 413.04, 14.82, 25.02, 10.93]
+        std_list = [8.70, 6.37, 9.55, 4.71, 179.02, 1.69, 8.71, 6.39]
 
         # we have the input data as x, and the output as y
         self.x_test = np.array(self.dfData.iloc[:, :-1])
@@ -79,8 +76,8 @@ class alm04_svm():
         return rmse, rrmse, mbe, r2, nse
 
 if __name__ == '__main__':
-    mlModel = alm04_svm()
-    mlModel.import_dataset("data/ria_alm04.csv", 'csv')
+    mlModel = mag01_mlp()
+    mlModel.import_dataset("data/ria_sev09.csv", 'csv')
     mlModel.getStandardDataTest()
     mlModel.predictValues()
     rmse, rrmse, mbe, r2, nse = mlModel.statAnalysis()
